@@ -28,7 +28,7 @@
 
         - Transport Layer ( TCP/UDP ): 傳輸層，當確定了主機與 Port 就能建立程式之間的交流，使用的協定可能是較可靠的 TCP 連接、較快速的 UDP 連接...etc
 
-            - Port: 使用網路的程式的編號，每一個封包都會發送到主機的特定 Port，以此讓不同應用取得自己所需要的封包，Port 號為 0~65535 的整數共 16 bits，0~1023 會分配給固定的服務而被系統占用，所以本地啟動 80 或 443 port 時，有時候會提示權限不足，用戶一般只能選擇 1024 以上的 Port，在瀏覽網頁或通訊軟體時，程序會隨機選用一個 Port 與伺服器的相應 Port 做聯繫
+            - Port: 使用網路的程式的編號，每一個封包都會發送到主機的特定 Port，以此讓不同應用取得自己所需要的封包，Port 號為 0-65535 的整數共 16 bits，0-1023 會分配給固定的服務而被系統占用，所以本地啟動 80 或 443 port 時，有時候會提示權限不足，用戶一般只能選擇 1024 以上的 Port，在瀏覽網頁或通訊軟體時，程序會隨機選用一個 Port 與伺服器的相應 Port 做聯繫
 
             - UDP: 由 Header 與 Data 組成，Header 部分只有 8 octets，總長度不超過 16 bits，發送封包之前不需建立連接，有較好的實時性，適用於高速傳輸或廣播通信，支援點對點、一對多、廣播等方式交互通信，此協定優點為簡單易實現，缺點為可靠性較差，封包發出後不能確定對方是否收到
 
@@ -153,13 +153,13 @@
 
             - Internet Protocol Address: 網路是由許多的子網路所構成，運用 ARP 協定向所有網路上的使用者發送資料顯然不合理，當兩台主機在同個子網路中時才使用 Broadcast 的方式發送，否則則採用 Router  的方式，而 MAC Address 只與廠商有關，無法用來識別不同的子網路，而 Network Layer 引進了網路地址，用以識別不同的電腦是否在同個子網內，而 IP 就是規定網路地址的協定
                 
-                - IPv4: 由 32 個 2 進位組成，常用 4 組 10 進位的數字表示，範圍從 0.0.0.0~255.255.255.255，例如有一組 IP 192.168.0.1，假設前 3 組數字代表網路，最後 1 組代表主機，則同一個子網的電腦前三組數字必然是相同的
+                - IPv4: 由 32 個 2 進位組成，常用 4 組 10 進位的數字表示，範圍從 0.0.0.0-255.255.255.255，例如有一組 IP 192.168.0.1，假設前 3 組數字代表網路，最後 1 組代表主機，則同一個子網的電腦前三組數字必然是相同的
 
                 - SUBNET MASK: 單從 IP Address 是沒法判斷網路的部分到底是 24 位還是 16 位，所以用 MASK 來表示子網路特徵，在形式上類似 IP Address，但網路部分都是 1，主機部分都是 0，以上面的例子來看就是 255.255.255.0，要判斷任意兩個 IP 是否在同個子網路，只要將 IP 與 MASK 進行 AND 計算，再比較兩個數字是否相同即可
 
                 - Packet: 由 Header 與 Data 組成，Total length 最大 16 bits，也就是 65535 octets，由於 Ethernet 的最大傳輸單元( MTU )只有 1500 octets，所以當 Packet 超過 1500 octets，就需要分割成多個 Ethernet 的 Frame 分開發送
 
-                    - Header: 20~60 octets，包含版本號，長度，IP Address 等資訊
+                    - Header: 20-60 octets，包含版本號，長度，IP Address 等資訊
 
                         <table>
                             <thead>
@@ -252,7 +252,7 @@
                             <td>6 octets</td>
                             <td>6 octets</td>
                             <td>2 octets</td>
-                            <td>42 ~ 1500 octets</td>
+                            <td>42-1500 octets</td>
                             <td>4 octets</td>
                             <td>12 octets</td>
                         </tr>
@@ -271,7 +271,7 @@
 
                 - Header: 14 octets，說明發送者、接收者、資料類型...etc
 
-                - Data: 48~1500 octets，資料傳送具體內容，也就是 Packet
+                - Data: 48-1500 octets，資料傳送具體內容，也就是 Packet
 
                 - CRC Checksum: 4 octets，檢查資料是否損壞
 
@@ -307,7 +307,7 @@
 
 <br>
 
-3. HyperText Transfer Protocol ( Secure ): 縮寫為 HTTP ( HTTPS ) ，是基於 TCP 的應用層通訊協定，數據連接需要經過 TCP 的三次握手，接收方預設 80 Port ( 443 port )，發送方則是從 1024~65535 中隨機生成，HTTP 使用 Request/Response Model，由 Client 發起 Request 後，Server 再回覆 Response
+3. HyperText Transfer Protocol ( Secure ): 縮寫為 HTTP ( HTTPS ) ，是基於 TCP 的應用層通訊協定，數據連接需要經過 TCP 的三次握手，接收方預設 80 Port ( 443 port )，發送方則是從 1024-65535 中隨機生成，HTTP 使用 Request/Response Model，由 Client 發起 Request 後，Server 再回覆 Response
 
     ![http](./internet-protocol/http.png)
 
@@ -426,11 +426,11 @@
 
         - Length: 有效長度分為以下三種
 
-            1. 125 以下: 讀取 9~15 bits 得到的值為 125 以下，此數即為長度
+            1. 125 以下: 讀取 9-15 bits 得到的值為 125 以下，此數即為長度
 
-            2. 126~65535: 讀取 9~15 bits 得到的值為 126，讀取接下來的 16 位為長度
+            2. 126-65535: 讀取 9-15 bits 得到的值為 126，讀取接下來的 16 位為長度
 
-            3. 65536 以上:  讀取 9~15 bits 得到的值為 127，讀取接下來的 64 位為長度
+            3. 65536 以上:  讀取 9-15 bits 得到的值為 127，讀取接下來的 64 位為長度
 
     - WebSocket 連線: 
 
