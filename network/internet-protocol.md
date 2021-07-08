@@ -467,7 +467,7 @@
 
         - Naming convention: 若使用的格式為 Example Inc. 專有，那麼自定義的子協定推薦命名為 chat.example.com
 
-        - 若需使用子協定，握手時需要發送以下內容( 二擇一 )，若 Server 不接受此子協定則拒絕連線
+        - 若使用子協定，握手時需要發送以下內容( 二擇一 )，Server 會依順序檢查並返回第一個支援的協定
 
             ```txt
             GET /chat HTTP/1.1
