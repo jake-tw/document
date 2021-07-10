@@ -467,7 +467,7 @@
 
         - Naming convention: 若使用的格式為 Example Inc. 專有，那麼自定義的子協定推薦命名為 chat.example.com
 
-        - 若使用子協定，握手時需要發送以下內容( 二擇一 )，Server 會依順序檢查並返回第一個支援的協定
+        - 若使用子協定，握手時需要發送以下內容( 二擇一 )，Server 會依順序檢查並返回第一個支援的協定，若都不支援不會返回 Sec-WebSocket-Protocol，由 Client 決定是否繼續或中止連線
 
             ```txt
             GET /chat HTTP/1.1
@@ -496,11 +496,11 @@
                 Body^@
                 ```
 
-                - COMMAND: SEND、SUBSCRIBE、MESSAGE、CONNECT、CONNECTED...etc
+                - COMMAND: 預設編碼 UTF-8，SEND、SUBSCRIBE、MESSAGE、CONNECT、CONNECTED...etc
 
-                - Header: 類似 HTTP 的 Header
+                - Header: 預設編碼 UTF-8，類似 HTTP 的 Header
 
-                - Body: 可以是 Binary 或 Text
+                - Body: STOMP 是基於 TEXT 的傳送，但也允許使用 Binary，一般透過 header content-type 指定格式，不指定則是 Binary blob
 
             - Frame 範例:
 
@@ -518,7 +518,7 @@
 
                 - receipt: 用來確認處理
 
-    - SockJS: SockJs 是一個 JavaScript 的 library，因應發展初期多數 Browser 不支援 WebSocket 的問題，SockJs 會盡可能的優先使用 WebSocket，若不支援則自動降級為 Polling 的方式
+    - SockJS: SockJS 是一個 JavaScript 的 library，因應發展初期多數 Browser 不支援 WebSocket 的問題，SockJs 會盡可能的優先使用 WebSocket，若不支援則自動降級為 Polling 的方式，由於 SockJS 不支援 Binary Data，使用 SockJS 的話資料會被限制成 TEXT 相關的格式
 
 <br>
 <br>
