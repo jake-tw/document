@@ -305,6 +305,32 @@
 
     - Socket 代表一個網路上的通訊端點 ( Communication Endpoint )，可以理解為兩台主機各有一個虛擬插槽，當插上網路線後就能進行雙向的資料傳遞，而依照傳遞方式的不同，可以是 TCP Socket 或 UDP Socket...etc
 
+    - RSocket: RSocket 是基於 TCP 的 Reactive Socket，支援以下四種通訊模式
+
+        - Request Response
+
+            - 長度 1 的 Stream
+
+            - 送出 Request 後收到 Response 即關閉 TCP 連線
+
+        - Request Fire-n-Forget
+
+            - 無 Response
+            
+            - 成功送出 Request 就關閉 TCP 連線
+
+        - Request Stream
+
+            - 送出 Request 後，接收有限長度 N 的 Stream
+
+            - 在 Stream 結束後才關閉 TCP 連線
+
+        - Request Channel
+
+            - 雙向 (bi-directional) Stream
+
+            - 在 Stream 結束後才關閉 TCP 連線
+
 <br>
 
 3. HyperText Transfer Protocol ( Secure ): 縮寫為 HTTP ( HTTPS ) ，是基於 TCP 的應用層通訊協定，數據連接需要經過 TCP 的三次握手，接收方預設 80 Port ( 443 port )，發送方則是從 1024-65535 中隨機生成，HTTP 使用 Request/Response Model，由 Client 發起 Request 後，Server 再回覆 Response
