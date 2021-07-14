@@ -305,31 +305,135 @@
 
     - Socket 代表一個網路上的通訊端點 ( Communication Endpoint )，可以理解為兩台主機各有一個虛擬插槽，當插上網路線後就能進行雙向的資料傳遞，而依照傳遞方式的不同，可以是 TCP Socket 或 UDP Socket...etc
 
-    - RSocket: RSocket 是基於 TCP 的 Reactive Socket，支援以下四種通訊模式
+    - RSocket: RSocket 是基於 TCP 的 Reactive Socket，每個操作都是一個 Stream，可使用 WebSocket、TCP 或 Aeron 作為傳輸協定，由於 RSocket 的 Server 與 Client 概念比較模糊，所有在 RSocket 的文件中主要使用 Requester 和 Responder 來代表發送與接收方
 
-        - Request Response
+        - Requester: 發送請求的一方，一個連線最多有 2 個 Requester，每個方向各 1
 
-            - 長度 1 的 Stream
+        - Responder: 接收資料的一方，一個連線最多有 2 個 Responder，每個方向各 1
 
-            - 送出 Request 後收到 Response 即關閉 TCP 連線
+        - Fragment: 包含在 Frame 中被分割的 Message
 
-        - Request Fire-n-Forget
+        - Frame: 最基本的傳輸單位，以下是常見的 Flag 和 Type
 
-            - 無 Response
-            
-            - 成功送出 Request 就關閉 TCP 連線
+            - Payload Flag
 
-        - Request Stream
+                - (M)etadata: 表示為 Metadata
 
-            - 送出 Request 後，接收有限長度 N 的 Stream
+                - (F)ollows: 表示這個 Fragment 後面還有更多的 Fragments
 
-            - 在 Stream 結束後才關閉 TCP 連線
+                - (N)ext: 表示還有下一個 Payload Data 或 Metadata
 
-        - Request Channel
+                - (C)omplete: 表示 Stream 完成
 
-            - 雙向 (bi-directional) Stream
+            - Type
 
-            - 在 Stream 結束後才關閉 TCP 連線
+                - NEXT: 包含 NEXT Flag 的 PAYLOAD Frame
+
+                - COMPLETE: 包含 COMPLETE Flag 的 PAYLOAD Frame
+
+                - NEXT_COMPLETE: 包含 NEXT Flag 和 COMPLETE Flag 的 PAYLOAD Frame
+
+                - CANCEL: 中斷未完成的 Stream
+
+                - ERROR: 連線或應用程式錯誤
+
+                - SETUP: 由 Client 發起連線請求
+
+                - REQUEST_STREAM, REQUEST_RESPONSE, REQUEST_FNF, REQUEST_CHANNEL: 表示操作類型
+
+        - Request: RSocket 中有以下 4 種不同類型的操作方式
+
+            - Request Response
+
+                - 送出 Request 後收到 Response 即結束 Stream
+
+                - Example
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_RESPONSE
+                    2. RS -> RQ: PAYLOAD with COMPLETE
+                    ```
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_RESPONSE
+                    2. RS -> RQ: ERROR
+                    ```
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_RESPONSE
+                    2. RQ -> RS: CANCEL
+                    ```
+
+            - Request Fire-n-Forget
+
+                - 送出 Request 就結束 Stream
+
+                - Example
+
+                    ```txt
+                    RQ -> RS: REQUEST_FNF
+                    ```
+
+            - Request Stream
+
+                - 送出 Request 後，接收有限長度 N 的 Stream
+
+                - Stream 結束或取消前不會關閉
+
+                - Example
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_STREAM
+                    2. RS -> RQ: PAYLOAD*
+                    3. RS -> RQ: ERROR
+                    ```
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_STREAM
+                    2. RS -> RQ: PAYLOAD*
+                    3. RS -> RQ: COMPLETE
+                    ```
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_STREAM
+                    2. RS -> RQ: PAYLOAD*
+                    3. RQ -> RS: CANCEL
+                    ```
+
+            - Request Channel
+
+                - 雙向 (bi-directional) Stream
+
+                - Stream 結束或取消前不會關閉
+
+                - Example
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_CHANNEL
+                    2. RQ -> RS: PAYLOAD*
+                    3. RQ -> RS: COMPLETE
+                    ---
+                    1. RS -> RQ: PAYLOAD*
+                    2. RS -> RQ: COMPLETE
+                    ```
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_CHANNEL
+                    2. RQ -> RS: PAYLOAD*
+                    3. RQ -> RS: COMPLETE
+                    ---
+                    1. RS -> RQ: PAYLOAD*
+                    2. RS -> RQ: ERROR
+                    ```
+
+                    ```txt
+                    1. RQ -> RS: REQUEST_CHANNEL
+                    2. RQ -> RS: PAYLOAD*
+                    3. RQ -> RS: COMPLETE
+                    4. RQ -> RS: CANCEL
+                    ---
+                    1. RS -> RQ: PAYLOAD*
+                    ```
 
 <br>
 
@@ -559,4 +663,5 @@
 > https://gitlab.com/wireshark/wireshark/-/wikis/home  
 > https://www.iana.org/assignments/websocket/websocket.xml  
 > http://jmesnil.net/stomp-websocket/doc/  
-> https://stomp.github.io/index.html
+> https://stomp.github.io/index.html  
+> https://rsocket.io/
