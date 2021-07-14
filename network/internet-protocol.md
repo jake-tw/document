@@ -339,7 +339,32 @@
 
                 - SETUP: 由 Client 發起連線請求
 
-                - REQUEST_STREAM, REQUEST_RESPONSE, REQUEST_FNF, REQUEST_CHANNEL: 表示操作類型
+                - REQUEST_STREAM, REQUEST_RESPONSE, REQUEST_FNF, REQUEST_CHANNEL: 表示操作類型  
+
+                - REQUEST_N: 限制請求的資料數量為 N，主要用於 Flow Control，注意在 RSocket 中，這項功能違反 Reactive Streams JVM 的 Rule 17
+
+                    - Example
+
+                        ```txt
+                        1. RQ -> RS: REQUEST_STREAM (REQUEST_N=3)
+                        2. RS -> RQ: PAYLOAD
+                        3. RS -> RQ: PAYLOAD
+                        4. RS -> RQ: PAYLOAD
+                        5. RS needs to wait for a new REQUEST_N at that point
+                        6. RQ -> RS: REQUEST_N (N=3)
+                        7. RS -> RQ: PAYLOAD
+                        8. RS -> RQ: PAYLOAD with COMPLETE
+                        ```
+
+                    - 可使用修改以下 limitRate 觀察 REQUEST_N 的變化帶來的影響( 由於填充設定的關係，數字並不會和設定值相同 )
+
+                        ```java
+                        Flux.range(1, 100)
+                            .log()
+                            .limitRate(10)
+                            .delayElements(Duration.ofMillis(100))
+                            .subscribe(System.out::println);
+                        ```
 
         - Request: RSocket 中有以下 4 種不同類型的操作方式
 
@@ -380,6 +405,8 @@
 
                 - Stream 結束或取消前不會關閉
 
+                - Requester 可隨時發送 REQUEST_N Frame
+
                 - Example
 
                     ```txt
@@ -405,6 +432,8 @@
                 - 雙向 (bi-directional) Stream
 
                 - Stream 結束或取消前不會關閉
+
+                - Requester 和 Responder 都可隨時發送 REQUEST_N Frame
 
                 - Example
 
@@ -664,4 +693,5 @@
 > https://www.iana.org/assignments/websocket/websocket.xml  
 > http://jmesnil.net/stomp-websocket/doc/  
 > https://stomp.github.io/index.html  
-> https://rsocket.io/
+> https://rsocket.io/  
+> https://github.com/reactive-streams/reactive-streams-jvm
