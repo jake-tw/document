@@ -1,4 +1,4 @@
-# Schema and Resolver
+## Schema and Resolver
 
 GraphQL API 最重要的兩個元件就是 Schema 和 Resolver
 

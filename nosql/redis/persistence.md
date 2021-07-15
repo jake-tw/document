@@ -1,4 +1,4 @@
-# Redis persistence
+## Redis persistence
 
 - Persistence options
     - RDB ( Redis DataBase file | Redis Database Backup file )

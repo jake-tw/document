@@ -1,4 +1,4 @@
-# Variable
+## Variable
 
 GraphQL 與 SQL 一樣都會有 Injection 的問題，可以使用 Variable 進行參數化 Query 來解決，直接來看以下範例
 

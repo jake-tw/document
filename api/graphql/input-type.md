@@ -1,4 +1,4 @@
-# Input type
+## Input type
 
 除了前面介紹的回傳型別與基本的傳入值以外，還有一種專門給複雜參數使用的 Input type
 

@@ -1,4 +1,4 @@
-# GraphQL vs RESTful
+## GraphQL vs RESTful
 
 RESTful 跟 GraphQL 主要不同在於請求的部分，GraphQL 只有固定的進入點，而 RESTful 隨著功能增加與使用者需求，會發展出無數個進入點，並且 GraphQL 有固定的請求格式，RESTful 則需要依照 API 進行調整
 

@@ -1,4 +1,4 @@
-# GraphQL 簡介
+## GraphQL Introduction
 
 GraphQL 是一種為了 API 設計的查詢語言，提供完整且易於理解的資料結構描述，Client 端有權主動決定返回的資料，讓開發變得更具彈性。
 

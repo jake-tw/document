@@ -1,4 +1,4 @@
-# Capped collections
+## Capped collections
 
 - Check cardinality
     - List

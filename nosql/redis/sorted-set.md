@@ -1,4 +1,4 @@
-# Sorted Set
+## Sorted Set
 
 - 有順序的 Set
 - 所有資料都只能用 String 來儲存，沒有嵌套概念，不能設定 list, set, sorted set, hash

@@ -1,4 +1,4 @@
-# Lua scripting
+## Lua scripting
 
 Redis 從 2.6 版本開始內嵌 Lua 執行環境，解決了之前不能高效率的處理 CAS ( check-and-set ) 命令的缺點，並通過組合使用多個命令，實現更多原先執行困難的 Pattern
 

@@ -1,4 +1,4 @@
-# Interface
+## Interface
 
 與多數語言相同，GraphQL 也支援使用 interface 的抽象設計，除了共通的部分之外還能引入獨有的屬性，回傳時禁止使用 Interface type，必須為 Interface 實作的 Object type
 

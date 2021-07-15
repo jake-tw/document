@@ -1,4 +1,4 @@
-# Introspection
+## Introspection
 
 GraphQL 有著強大的內省機制，讓開發者完成 Schema 的同時就能完成文件，使用範例如下
 

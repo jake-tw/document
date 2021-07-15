@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 
 - How fast is Redis?
     - 依照官方提供的資料，每秒請求數可超過 100000 以上

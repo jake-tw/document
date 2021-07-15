@@ -1,4 +1,4 @@
-# Query and Mutation and Subscription
+## Query and Mutation and Subscription
 
 GraphQL 有三個 Root type，所有的操作都是由 Root type 向下延伸
 

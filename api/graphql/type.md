@@ -1,4 +1,4 @@
-# Type
+## Type
 
 1. Default type
     - Int : 32 bit 整數

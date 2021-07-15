@@ -1,4 +1,4 @@
-# Union Type
+## Union Type
 
 Union type 與 Interface 非常相似，但查詢時不指定類型間的共同字段，用於不確定的回傳型別
 

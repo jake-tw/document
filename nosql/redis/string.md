@@ -1,4 +1,4 @@
-# String
+## String
 
 - Text data
 - Integer and Floating Point number

@@ -1,4 +1,4 @@
-# Directive
+## Directive
 
 Directive 需要搭配前面學到的 Variable 使用，用於調整 Query 與 Schema 的行為
 

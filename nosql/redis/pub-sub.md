@@ -1,4 +1,4 @@
-# Publish / Subscribe
+## Publish / Subscribe
 
 Redis 可以建立發佈/訂閱模式 (Pub/Sub | Publish/Subscribe Pattern)，讓 Redis 充當多個 Client 的 Broker，向 Client 提供簡單發布或消耗 Message 和 Event 的功能。
 

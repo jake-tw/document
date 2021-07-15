@@ -1,4 +1,4 @@
-# Inline fragment
+## Inline fragment
 
 GraphQL 與大多數語言一樣都有 interface 和 union type 的概念，可以使用 Inline fragment 限制回傳的物件類型，或依照型別回傳不同種類的資訊
 

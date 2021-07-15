@@ -1,4 +1,4 @@
-# Faceted search
+## Faceted search
 
 - Attribute search
     - Disabled access availbale: yes / no
