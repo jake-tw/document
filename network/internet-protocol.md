@@ -6,6 +6,9 @@
 
         ![tcpip-5-layer-overview](./internet-protocol/tcpip-5-layer-overview.png)
 
+
+        - 你可能會聽過 OSI Model ( OSI 七層模型 )，事實上，OSI Model 只是一個參考，目前並沒有什麼很知名的作業系統在使用 OSI Moel，實務上由於 OSI Model 的架構太過嚴謹，因此程式撰寫不容易，TCP/IP Model 簡化了 OSI Model，在結構上面比較沒有這麼嚴謹，程式撰寫會比較容易些，TCP/IP Model 隨著網路發展，成為大家所接受的標準
+
         - Application Layer: 應用層，封包最終會組成以下格式進行傳輸，由於網路是開放的架構，資料格式若沒有約定好根本就無法解讀，如: WWW, E-MAIL, FTP...等需要網路通信功能所在的地方，必須有不同協定規定網頁、電子郵件還是 FTP 的格式，這些協定所構成的就是應用層，也是大多數使用者、開發者會接觸到的部分
 
             |Data Link header|Network header|Transport header|Appl. Data...|
