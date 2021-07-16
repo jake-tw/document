@@ -308,7 +308,7 @@
 
 - Socket 代表一個網路上的通訊端點 ( Communication Endpoint )，可以理解為兩台主機各有一個虛擬插槽，當插上網路線後就能進行雙向的資料傳遞，而依照傳遞方式的不同，可以是 TCP Socket 或 UDP Socket...etc
 
-- RSocket: RSocket 是基於 TCP 的 Reactive Socket，每個操作都是一個 Stream，可使用 WebSocket、TCP 或 Aeron 作為傳輸協定，由於 RSocket 的 Server 與 Client 概念比較模糊，所有在 RSocket 的文件中主要使用 Requester 和 Responder 來代表發送與接收方
+- RSocket: RSocket 是一種 Binary Protocol，顧名思義是一種 Reactive 的 Socket，每個操作都是一個 Stream，可使用 WebSocket、TCP、Aeron 或 HTTP/2 streams 作為傳輸協定，由於 RSocket 的 Server 與 Client 界線比較模糊，所有在 RSocket 的文件中主要使用 Requester 和 Responder 來代表發送與接收方
 
     - Requester: 發送請求的一方，一個連線最多有 2 個 Requester，每個方向各 1
 
@@ -535,7 +535,7 @@
     <table>
         <thead>
             <tr align="center">
-                <td colspan="10">UDP Datagram Header Format</td>
+                <td colspan="10">WebSocket Frame Format</td>
             </tr>
         </thead>
         <tbody>
