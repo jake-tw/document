@@ -144,7 +144,7 @@
 
                 - Sequence Number: 序列號，由發送端隨機選擇一個初始序號( ISN )，目的是要確定被分割過的資料的先後順序，初始序號通常會由 0 開始
 
-                - Acknowledgment Number: 確認碼，為了確定接收端有正確的收到資料，會將收到的 SYN 加上 TCP Segment ( 資料區段或者說是 TPC 封包 ) 的資料長度 ( Length )，回覆給發送端，由於握手時還沒有應用層的資料，此時的 ACK Number 為  SEQ + 1
+                - Acknowledgment Number: 確認碼，為了確定接收端有正確的收到資料，會將收到的 SEQ 加上 TCP Segment ( 資料區段或者說是 TPC 封包 ) 的資料長度 ( Length )，回覆給發送端，由於握手時還沒有應用層的資料，此時的 ACK Number 為  SEQ + 1
 
 
             - Four-way handshake ( 揮手 ): 由於 TCP 連接是全雙向的溝通，因此每個方向都必須要單獨進行關閉，發送 FIN 表示終止這一方向的連接，接收方收到 FIN 就意味著不會再收到封包，但此時接收方的 TCP 連接仍然能夠發送資料，直到接收方也發送 FIN 為止
@@ -284,7 +284,11 @@
 
         - Gateway: 若兩台主機不在同一個子網路內，發送方需要透過 Gateway (A) 進行轉發，此時所使用的接收方 MAC Address 會改成 Gateway (A) 的 MAC Address，而 Gateway (A) 透過 Routing protocol 尋找目標的 Gateway (B)，Gateway (B) 再將請求轉發給目標主機，簡單的理解 Gateway 其實就是申請網路後，ISP 業者到家中安裝的路由器
 
-    - Phyical Layer: 實體層，也就是網路線或天線
+            - Gateway 與 Router 的差別在於，Gateway 作用在不同協定間的轉換，如 Ethernet to Wifi ( Layer 2 )，而 Router 作用在不同 IP 的轉換( Layer 3 )，如 WAN to LAN
+            
+            - Default gateway: 若目標地址不在自己的子網路中，會丟給 Default gateway 處理，通常是丟給 Router，而 Router 也會判斷目標地址是否在自己的子網路中，沒有的話一樣往自己的 Default gateway 丟，如此一層一層丟上去值到目標為止，所以 Router 一定會有兩段 IP，沒有兩段 IP 是無法作為 Router 的腳色的
+
+    - Physical layer: 實體層，也就是網路線或天線
 
 - 資料傳輸過程
 
@@ -298,7 +302,7 @@
 
     - Data Link Layer ( MAC ): 添加 MAC Address 等資訊後封裝成 Frame 轉發給實體層
 
-    - Phyical Layer: 傳輸 bits 訊號 ( 0 or 1 )
+    - Physical layer: 傳輸 bits 訊號 ( 0 or 1 )
 
 <br>
 
